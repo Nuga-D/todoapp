@@ -12,10 +12,9 @@ const pool = mysql.createPool(dbConfig);
 
 const User = {
   async createUser(username, password) {
-    const hash = await bcrypt.hash(password, 10);
     const [result] = await pool.execute(
       'INSERT INTO users (username, password) VALUES (?, ?)',
-      [username, hash]
+      [username, password]
     );
     return result.insertId;
   },
