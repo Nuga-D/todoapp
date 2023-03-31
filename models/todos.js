@@ -25,7 +25,32 @@ const Todo = {
       [user_id]
     );
     return rows[0];
+  },
+
+  async getTodoItemById(id) {
+    const [rows] = await pool.execute(
+      'SELECT * FROM todos WHERE id = ?',
+      [id]
+    );
+    return rows[0];
+  },
+
+  async updateTodoItem(id, title, description, completed) {
+    const [result] = await pool.execute(
+      'UPDATE todos SET title = ?, description = ?, completed = ? WHERE id = ?',
+      [title, description, completed, id]
+    );
+    return result.affectedRows > 0;
+  },
+
+  async deleteTodoItem(id) {
+    const [result] = await pool.execute(
+      'DELETE FROM todos WHERE id = ?',
+      [id]
+    );
+    return result.affectedRows > 0;
   }
 };
+
 
 module.exports = Todo;

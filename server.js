@@ -16,6 +16,7 @@ app.use('/', authRoutes);
 app.use('/todo', todoRoutes);
 app.use('/task', todoRoutes);
 app.use('/todos', todoRoutes);
+app.use('/:id', todoRoutes);
 
 
 // Start server
