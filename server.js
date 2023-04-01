@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoutes = require('./routes/auth');
 const todoRoutes = require('./routes/todo')
+const taskRoutes = require('./routes/task')
 
 
 const app = express();
@@ -17,6 +18,9 @@ app.use('/todo', todoRoutes);
 app.use('/task', todoRoutes);
 app.use('/todos', todoRoutes);
 app.use('/:id', todoRoutes);
+app.use('/task', taskRoutes);
+app.use('/task/todos/:todoId', taskRoutes);
+app.use('/tasks/:taskId', taskRoutes);
 
 
 // Start server

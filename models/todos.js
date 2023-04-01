@@ -11,10 +11,10 @@ const dbConfig = {
 const pool = mysql.createPool(dbConfig);
 
 const Todo = {
-  async createTodo(title, description, completed, createdAt, updatedAt, user_id) {
+  async createTodo(title, description, completed, user_id) {
     const [result] = await pool.execute(
-      "INSERT INTO todos (title, description, completed, created_at, updated_at, user_id) VALUES (?, ?, ?, ?, ?, ?)",
-      [title, description, completed, createdAt, updatedAt, user_id]
+      "INSERT INTO todos (created_at, updated_at, title, description, completed, user_id) VALUES (NOW(), NOW(), ?, ?, ?, ?)",
+      [title, description, completed, user_id]
     );
     return result.todo;
   },
@@ -24,7 +24,7 @@ const Todo = {
       'SELECT * FROM todos WHERE user_id = ?',
       [user_id]
     );
-    return rows[0];
+    return rows;
   },
 
   async getTodoItemById(id) {
