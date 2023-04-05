@@ -4,7 +4,7 @@ const mysql = require("mysql2/promise");
 const dbConfig = {
   host: "localhost",
   user: "root",
-  password: "root",
+  password: "Timidade01.",
   database: "todoapp",
 };
 
@@ -16,7 +16,9 @@ const Todo = {
       "INSERT INTO todos (created_at, updated_at, title, description, completed, user_id) VALUES (NOW(), NOW(), ?, ?, ?, ?)",
       [title, description, completed, user_id]
     );
-    return result.todo;
+    const todoId = result.insertId;
+    const todo = await pool.execute('SELECT * FROM todos WHERE id = ?', [todoId]);
+    return todo[0];
   },
 
   async findTodosByUserId(user_id) {
@@ -50,6 +52,7 @@ const Todo = {
     );
     return result.affectedRows > 0;
   }
+
 };
 
 

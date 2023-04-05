@@ -22,7 +22,7 @@ taskRouter.get('/todos/:todoId', async (req, res) => {
       return res.status(401).send('Unauthorized');
     }
 
-    res.json(tasks);
+    res.json({tasks});
   } catch (error) {
     console.log(error);
     res.status(500).send('An error occurred');
@@ -47,7 +47,7 @@ taskRouter.post('/todos/:todoId', async (req, res) => {
     }
 
     const task = await Task.createTask(todoId, title, description, completed);
-    res.json(task);
+    res.json({task});
   } catch (error) {
     console.log(error);
     res.status(500).send('An error occurred');
@@ -78,7 +78,7 @@ taskRouter.put("/tasks/:taskId", async (req, res) => {
     
     const { title, description, completed } = req.body;
     const updatedTask = await Task.update(title, description, completed, taskId);
-    res.json(updatedTask);
+    res.json({updatedTask});
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred");
@@ -106,7 +106,7 @@ taskRouter.delete("/tasks/:taskId", async (req, res) => {
     }
 
     await Task.deleteTask(taskId);
-    res.sendStatus(204);
+    res.sendStatus(204).send('task deleted successfully');
   } catch (error) {
     console.log(error);
     res.status(500).send("An error occurred");
