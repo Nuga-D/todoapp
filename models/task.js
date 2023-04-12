@@ -1,13 +1,4 @@
-const mysql = require("mysql2/promise");
-
-const dbConfig = {
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "todoapp",
-};
-
-const pool = mysql.createPool(dbConfig);
+const pool = require("../db/pool");
 
 const Task = {
   async createTask(todoId, title, description, completed, order, priority_id, deadline) {
